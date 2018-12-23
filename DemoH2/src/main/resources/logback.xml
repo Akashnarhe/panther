@@ -19,6 +19,9 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
 	<!--<logger name="org.hibernate" level="debug"/> -->
    <!-- Uncomment and add your logger here:
     <logger name="org.springframework.samples.service.service" level="debug"/> -->
+    <logger name="com.demoh2.example.controller" level="info"></logger>
+     <logger name="com.demoh2.example.serviceImpl" level="info"></logger>
+      <logger name="com.demoh2.example.daoImpl" level="info"></logger>
          
     <root level="info">
         <appender-ref ref="console"/>

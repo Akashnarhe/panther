@@ -60,10 +60,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return employee;
 	}
 
-	public void deleteEmployee(int id) {
+	public void deleteEmployee(Employee emp) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		session.delete(findById(id));
+		session.delete("Employee.class", emp);
 		session.getTransaction().commit();
 	}
 
