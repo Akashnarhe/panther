@@ -47,7 +47,7 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/deleteemp", method = RequestMethod.DELETE, consumes = "application/json")
-	public void deleteEmployee(Employee emp) {
+	public void deleteEmployee(@RequestBody Employee emp) {
 		logger.info("Inside the deleteEmployee Method emp is " + emp);
 		employeeServiceImpl.deleteEmployee(emp);
 	}

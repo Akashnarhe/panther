@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -61,9 +62,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 	public void deleteEmployee(Employee emp) {
+		String hql = "DELETE FROM Employee WHERE Emp_ID = :Emp_id";
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		session.delete("Employee.class", emp);
+		Query<Employee> query = session.createQuery(hql);
+		query.setParameter("Emp_id", emp.getId());
+		query.executeUpdate();
+//		session.delete("Employee.class", emp);
 		session.getTransaction().commit();
 	}
 
