@@ -8,6 +8,8 @@
 		<title>Welcome</title>
 	</head> 
 	<body>
-		<h2>${message}</h2>
+			<div>
+				<p style="color: navy;">${message}</p>
+			</div>
 	</body>
 </html>
