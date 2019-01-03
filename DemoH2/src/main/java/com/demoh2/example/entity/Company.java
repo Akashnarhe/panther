@@ -1,5 +1,7 @@
 package com.demoh2.example.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,26 +18,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "company")
 @XmlRootElement
-public class Company {
+public class Company implements Serializable {
+
+	private static final long serialVersionUID = 224117223595682766L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Comp_ID")
-	private int id;
+	@Column(name = "Comp_ID", unique = true, nullable = false)
+	private int cid;
 
 	@Column(name = "Comp_Name")
 	private String cName;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="company")
-//	@JoinColumn(name="Comp_ID") for unidirectional mapping uncomment this line 
-	List<Employee> employees;
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	// @JoinColumn(name="Comp_ID") for unidirectional mapping uncomment this line
+	List<Employee> employees = new ArrayList<>();
 
-	public int getId() {
-		return id;
+	public int getCid() {
+		return cid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCid(int cid) {
+		this.cid = cid;
 	}
 
 	public String getcName() {
@@ -54,42 +58,20 @@ public class Company {
 		this.employees = employees;
 	}
 
+	public void addEmployee(Employee employee) {
+		employee.setCompany(this);
+		this.employees.add(employee);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Company [id=");
-		builder.append(id);
+		builder.append("Company [cid=");
+		builder.append(cid);
 		builder.append(", cName=");
 		builder.append(cName);
 		builder.append("]");
 		return builder.toString();
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((cName == null) ? 0 : cName.hashCode());
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Company other = (Company) obj;
-		if (cName == null) {
-			if (other.cName != null)
-				return false;
-		} else if (!cName.equals(other.cName))
-			return false;
-		if (id != other.id)
-			return false;
-		return true;
-	}
 }

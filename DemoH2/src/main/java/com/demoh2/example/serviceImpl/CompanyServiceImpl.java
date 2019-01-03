@@ -12,7 +12,7 @@ import com.demoh2.example.entity.Company;
 import com.demoh2.example.service.CompanyService;
 
 @Service
-@Transactional(propagation=Propagation.REQUIRED)
+@Transactional
 public class CompanyServiceImpl implements CompanyService {
 	
 	@Autowired

@@ -1,5 +1,8 @@
 package com.demoh2.example.entity;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,48 +14,50 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 @Entity
-@Table(name="employee")
+@Table(name = "employee")
 @XmlRootElement
-public class Employee {
-	
+public class Employee implements Serializable {
+
+	private static final long serialVersionUID = 7679620555959552912L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="Emp_ID")
-	private int id;
-	
-/*	if wanted to perform unidirectional mapping then uncomment this and comment below company variables code
- *  and generate getters and setters along with toString(),equals() and hashCode() methods.
-    @Column(name="Comp_ID")
-	private int cId;*/
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Comp_ID")
-	private Company company;
-	
-	@Column(name="Emp_Name")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "Emp_ID", unique = true, nullable = false)
+	private int eid;
+
+	/*
+	 * if wanted to perform unidirectional mapping then uncomment this and comment
+	 * below company variables code and generate getters and setters along with
+	 * toString(),equals() and hashCode() methods.
+	 * 
+	 * @Column(name="Comp_ID") private int cId;
+	 */
+
+	@Column(name = "Emp_Name")
 	private String eName;
-	
-	@Column(name="Emp_Email")
+
+	@Column(name = "Emp_Email")
 	private String eEmail;
-	
-	@Column(name="Emp_Salary")
+
+	@Column(name = "Emp_Salary")
 	private int eSalary;
 
-	public int getId() {
-		return id;
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Comp_ID", nullable = false)
+	private Company company = new Company();
+
+	public int getEid() {
+		return eid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Company getCompany() {
-		return company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setEid(int eid) {
+		this.eid = eid;
 	}
 
 	public String geteName() {
@@ -78,14 +83,30 @@ public class Employee {
 	public void seteSalary(int eSalary) {
 		this.eSalary = eSalary;
 	}
+	
+	public int getCompanyCid(Company company) {
+		return company.getCid();
+	}
+	
+	public String getCompanyCname(Company company) {
+		return company.getcName();
+	}
+
+	@JsonIgnore
+	@JsonProperty(access = Access.WRITE_ONLY)
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Employee [id=");
-		builder.append(id);
-		builder.append(", company=");
-		builder.append(company);
+		builder.append("Employee [eid=");
+		builder.append(eid);
 		builder.append(", eName=");
 		builder.append(eName);
 		builder.append(", eEmail=");
@@ -96,46 +117,4 @@ public class Employee {
 		return builder.toString();
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((company == null) ? 0 : company.hashCode());
-		result = prime * result + ((eEmail == null) ? 0 : eEmail.hashCode());
-		result = prime * result + ((eName == null) ? 0 : eName.hashCode());
-		result = prime * result + eSalary;
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Employee other = (Employee) obj;
-		if (company == null) {
-			if (other.company != null)
-				return false;
-		} else if (!company.equals(other.company))
-			return false;
-		if (eEmail == null) {
-			if (other.eEmail != null)
-				return false;
-		} else if (!eEmail.equals(other.eEmail))
-			return false;
-		if (eName == null) {
-			if (other.eName != null)
-				return false;
-		} else if (!eName.equals(other.eName))
-			return false;
-		if (eSalary != other.eSalary)
-			return false;
-		if (id != other.id)
-			return false;
-		return true;
-	}
 }

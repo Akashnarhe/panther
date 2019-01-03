@@ -16,7 +16,7 @@ import com.demoh2.example.entity.Employee;
 import com.demoh2.example.serviceImpl.EmployeeServiceImpl;
 
 @RestController
-@RequestMapping(value="/employee")
+@RequestMapping(value = "/employee")
 public class EmployeeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
@@ -53,8 +53,8 @@ public class EmployeeController {
 		logger.info("Inside the deleteEmployee Method emp is " + emp);
 		employeeServiceImpl.deleteEmployee(emp);
 	}
-	
-	@RequestMapping(value="/showMessage", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/showMessage", method = RequestMethod.GET)
 	public ModelAndView showMessage(ModelAndView showMessage) {
 		logger.info("Inside the showMessage method");
 		showMessage.addObject("message", "Good Morning...............!");
