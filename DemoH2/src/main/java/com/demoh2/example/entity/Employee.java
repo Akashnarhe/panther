@@ -14,7 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -83,12 +86,14 @@ public class Employee implements Serializable {
 	public void seteSalary(int eSalary) {
 		this.eSalary = eSalary;
 	}
-	
-	public int getCompanyCid(Company company) {
+
+	@JsonGetter(value = "cid")
+	public int getCompanyCid() {
 		return company.getCid();
 	}
-	
-	public String getCompanyCname(Company company) {
+
+	@JsonGetter(value = "cName")
+	public String getCompanyCname() {
 		return company.getcName();
 	}
 
@@ -117,4 +122,11 @@ public class Employee implements Serializable {
 		return builder.toString();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof Employee)) {
+			return false;
+		}
+		return true;
+	}
 }
