@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- Rest authentication entry point configuration -->
+	<security:http use-expressions="true"
+		entry-point-ref="customBasicAuthenticationEntryPoint">
+		<security:intercept-url pattern="/DemoH2/**"
+			access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<!-- <security:form-login
+			authentication-success-handler-ref="successHandler"
+			authentication-failure-handler-ref="failureHandler" /> -->
+	</security:http>
+
+	<!-- Using default success handler -->
+	<bean id="successHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler" />
+
+	<!-- Using default failure handler -->
+	<bean id="failureHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" />
+
+	<bean id="customBasicAuthenticationEntryPoint"
+		class="com.demoh2.example.security.CustomBasicAuthenticationEntryPoint" />
+
+	<!-- Authentication manager -->
+	<security:authentication-manager
+		alias="authenticationManager">
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="Akash" password="Akash@123"
+					authorities="ROLE_ADMIN" />
+				<security:user name="Vinay" password="Vinay@123"
+					authorities="ROLE_USER" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>
