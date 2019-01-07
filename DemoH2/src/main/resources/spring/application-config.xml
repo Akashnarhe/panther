@@ -9,12 +9,15 @@
 
 	<!-- Uncomment and add your base-package here: <context:component-scan base-package="org.springframework.samples.service"/> -->
 	
+	<!-- Property Placeholder -->
+	<context:property-placeholder location="classpath:hibernate/hibernate.properties"/>
+	
 	<!-- Datasource details -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="org.h2.Driver" />
-		<property name="url" value="jdbc:h2:file:C:/Users/anarhe/git/panther/DemoH2/test;ACCESS_MODE_DATA=rws" />
-		<property name="username" value="sa" />
-		<property name="password" value="" />
+		<property name="driverClassName" value="${h2.driverClassName}" />
+		<property name="url" value="${h2.url}" />
+		<property name="username" value="${h2.username}" />
+		<property name="password" value="${h2.password}" />
 	</bean>
 	
 	<!--<property name="configLocation" value="classpath:resources/spring/hibernate.cfg.xml" 
