@@ -9,7 +9,7 @@
 	</head> 
 	<body>
 			<div>
-				<p style="color: navy;">${message}</p>
+				<p style="color: navy; font-size: -webkit-xxx-large;" >${message}</p>
 			</div>
 	</body>
 </html>

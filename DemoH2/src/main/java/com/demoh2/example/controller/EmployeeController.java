@@ -55,9 +55,10 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/showMessage", method = RequestMethod.GET)
-	public ModelAndView showMessage(ModelAndView showMessage) {
+	public ModelAndView showMessage() {
 		logger.info("Inside the showMessage method");
-		showMessage.addObject("message", "Good Morning...............!");
-		return showMessage;
+		ModelAndView model = new ModelAndView("showMessage");
+		model.addObject("message", "Good Morning...............!");
+		return model;
 	}
 }
