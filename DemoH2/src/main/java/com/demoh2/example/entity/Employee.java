@@ -31,7 +31,7 @@ public class Employee implements Serializable {
 	private static final long serialVersionUID = 7679620555959552912L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Emp_ID", unique = true, nullable = false)
 	private int eid;
 

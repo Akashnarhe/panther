@@ -12,7 +12,7 @@
 	<!-- Datasource details -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="org.h2.Driver" />
-		<property name="url" value="jdbc:h2:file:C:/Users/anarhe/git/panther/DemoH2/test;ACCESS_MODE_DATA=rws" />
+		<property name="url" value="jdbc:h2:file:C:/Users/akash/git/panther/DemoH2/test;ACCESS_MODE_DATA=rws" />
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean>

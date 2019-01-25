@@ -12,9 +12,9 @@
 		entry-point-ref="customBasicAuthenticationEntryPoint">
 		<security:intercept-url pattern="/DemoH2/**"
 			access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<!-- <security:form-login
+		<security:form-login
 			authentication-success-handler-ref="successHandler"
-			authentication-failure-handler-ref="failureHandler" /> -->
+			authentication-failure-handler-ref="failureHandler" />
 	</security:http>
 
 	<!-- Using default success handler -->
