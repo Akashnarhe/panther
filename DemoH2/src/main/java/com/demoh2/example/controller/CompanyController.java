@@ -30,6 +30,10 @@ public class CompanyController {
 	@RequestMapping(value = "/getall", method = RequestMethod.GET, produces = "application/json")
 	public List<Company> getAllCompanyDetails() {
 		logger.info("Inside the method getAllCompanyDetails");
+		try {
+		throw new NullPointerException();
+		}catch (ArithmeticException e) {
+		}
 		return companyServiceImpl.getAllCompanyDetails();
 	}
 }
