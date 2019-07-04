@@ -19,7 +19,6 @@ public class EmployeeController {
 
 	@PostMapping(value="/save", consumes="application/json")
 	public void saveEmployee(@RequestBody Employee emp) {
-		System.out.println("Inside Controller " + emp.toString());
 		employeeServiceImpl.saveEmployee(emp);
 	}
 

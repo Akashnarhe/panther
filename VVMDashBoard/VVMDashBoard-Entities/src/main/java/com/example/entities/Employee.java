@@ -15,6 +15,7 @@ import lombok.Data;
 @Entity
 @Table(name="Employee")
 @XmlRootElement
+@Data
 public class Employee implements Serializable {
 
 	private static final long serialVersionUID = 2030493900910536974L;
@@ -22,99 +23,15 @@ public class Employee implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="Emp_Id",nullable=false, unique=true)
-	private int eId;
+	private int emp_Id;
 	
 	@Column(name="Emp_Name")
-	private String eName;
+	private String emp_Name;
 	
 	@Column(name="Emp_Email")
-	private String eEmail;
+	private String emp_Email;
 	
 	@Column(name="Emp_Salary")
-	private long eSalary;
-
-	public int geteId() {
-		return eId;
-	}
-
-	public void seteId(int eId) {
-		this.eId = eId;
-	}
-
-	public String geteName() {
-		return eName;
-	}
-
-	public void seteName(String eName) {
-		this.eName = eName;
-	}
-
-	public String geteEmail() {
-		return eEmail;
-	}
-
-	public void seteEmail(String eEmail) {
-		this.eEmail = eEmail;
-	}
-
-	public long geteSalary() {
-		return eSalary;
-	}
-
-	public void seteSalary(long eSalary) {
-		this.eSalary = eSalary;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((eEmail == null) ? 0 : eEmail.hashCode());
-		result = prime * result + eId;
-		result = prime * result + ((eName == null) ? 0 : eName.hashCode());
-		result = prime * result + (int) (eSalary ^ (eSalary >>> 32));
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Employee other = (Employee) obj;
-		if (eEmail == null) {
-			if (other.eEmail != null)
-				return false;
-		} else if (!eEmail.equals(other.eEmail))
-			return false;
-		if (eId != other.eId)
-			return false;
-		if (eName == null) {
-			if (other.eName != null)
-				return false;
-		} else if (!eName.equals(other.eName))
-			return false;
-		if (eSalary != other.eSalary)
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Employee [eId=");
-		builder.append(eId);
-		builder.append(", eName=");
-		builder.append(eName);
-		builder.append(", eEmail=");
-		builder.append(eEmail);
-		builder.append(", eSalary=");
-		builder.append(eSalary);
-		builder.append("]");
-		return builder.toString();
-	}
-	
+	private long emp_Salary;	
+	 
 }

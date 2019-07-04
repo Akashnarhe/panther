@@ -15,7 +15,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void saveEmployee(Employee emp) {
-		System.out.println("Inside Serices " + emp.toString());
 		employeeRepository.save(emp);
 	}
 
