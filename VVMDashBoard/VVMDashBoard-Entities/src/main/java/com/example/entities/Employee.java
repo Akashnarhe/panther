@@ -32,6 +32,6 @@ public class Employee implements Serializable {
 	private String emp_Email;
 	
 	@Column(name="Emp_Salary")
-	private long emp_Salary;	
+	private long emp_Salary;
 	 
 }
