@@ -24,14 +24,14 @@ public class Work {
 	@Id
 	// @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "Work_Id")
-	private int id;
+	private int workId;
 
 	@Column(name = "Work_Name")
-	private String name;
+	private String workName;
 
 	@Getter(onMethod_ = { @JsonIgnore })
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Project_Id")
-	private Project project;
+	private Project project = new Project();
 
 }
