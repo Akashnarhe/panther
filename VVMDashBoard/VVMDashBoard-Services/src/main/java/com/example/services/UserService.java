@@ -1,8 +1,8 @@
 package com.example.services;
 
-import com.example.entities.User;
+import com.example.tos.UserCto;
 
 public interface UserService {
-	User getUser(int id);
-	void saveUser(User user);
+	UserCto getUser(int id);
+	void saveUser(UserCto userCto);
 }

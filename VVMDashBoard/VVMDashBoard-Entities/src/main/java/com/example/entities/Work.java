@@ -29,8 +29,8 @@ public class Work {
 	@Column(name = "Work_Name")
 	private String workName;
 
-	@Getter(onMethod_ = { @JsonIgnore })
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@Getter(onMethod_ = { @JsonIgnore })
+	@ManyToOne()
 	@JoinColumn(name = "Project_Id")
 	private Project project = new Project();
 

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.entities.Work;
 import com.example.services.WorkService;
+import com.example.tos.WorkTo;
 
 @RestController
 @RequestMapping(value = "/rest/api/work")
@@ -19,7 +19,7 @@ public class WorkController {
 	WorkService workService;
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON)
-	public Work getWork(@PathVariable int id) {
+	public WorkTo getWork(@PathVariable int id) {
 		return workService.getWork(id);
 	}
 

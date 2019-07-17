@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.entities.User;
 import com.example.services.UserService;
+import com.example.tos.UserCto;
 
 @RestController
 @RequestMapping(value = "/rest/api/user")
@@ -27,14 +27,16 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON)
-	public User getUser(@PathVariable int id) {
-		return userService.getUser(id);
+	public UserCto getUser(@PathVariable int id) {
+		UserCto userCto = userService.getUser(id);
+		logger.debug("Output :- " + userCto.toString());
+		return userCto;
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON)
-	public ResponseEntity<Void> saveUser(@RequestBody User user) {
-		logger.info(user.toString());
-		userService.saveUser(user);
+	public ResponseEntity<Void> saveUser(@RequestBody UserCto userCto) {
+		logger.info(userCto.toString());
+		userService.saveUser(userCto);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }

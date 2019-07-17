@@ -1,5 +1,7 @@
 package com.example.servicesimpl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import com.example.entities.Project;
 import com.example.entities.User;
 import com.example.entities.Work;
 import com.example.services.ProjectService;
+import com.example.tos.ProjectCto;
+import com.example.tos.ProjectTo;
+import com.example.tos.WorkTo;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -18,31 +23,53 @@ public class ProjectServiceImpl implements ProjectService {
 	private ProjectRepository projectRepository;
 
 	@Override
-	public Project getProject(int id) {
-		return projectRepository.findById(id).get();
+	public ProjectCto getProject(int id) {
+		ProjectCto projectCto = new ProjectCto();
+		ProjectTo projectTo = new ProjectTo();
+		ArrayList<WorkTo> workToList = new ArrayList<>();
+		
+		Project project = projectRepository.findById(id).get();
+		
+		projectTo.setProjectId(project.getProjectId());
+		projectTo.setProjectName(project.getProjectName());
+		projectCto.setProject(projectTo);
+		
+		HashSet<Work> workList = new HashSet<>(project.getWorks());
+		
+		for (Work work : workList) {
+			WorkTo workTo = new WorkTo();
+			workTo.setWorkId(work.getWorkId());
+			workTo.setWorkName(work.getWorkName());
+			workToList.add(workTo);
+		}
+		projectCto.setWorks(workToList);
+		
+		return projectCto;
 	}
 
 	@Override
-	public void saveProject(Project project) {
+	public void saveProject(ProjectCto projectCto) {
 		Project project2 = new Project();
 
-		project2.setProjectId(project.getProjectId());
-		project2.setProjectName(project.getProjectName());
+		project2.setProjectId(projectCto.getProject().getProjectId());
+		project2.setProjectName(projectCto.getProject().getProjectName());
 		
-		System.out.println("1 :- " + project2.toString());
+		List<WorkTo> workToList = projectCto.getWorks();
 		
-		List<Work> workList = project.getWorks();
-		for (Work work : workList) {
+		for (WorkTo workTo : workToList) {
+			Work work = new Work();
+			work.setWorkId(workTo.getWorkId());
+			work.setWorkName(workTo.getWorkName());
+			
 			project2.addWork(work);
 		}
-		/*User user = project.getUser();
+		
 		User user2 = new User();
-		user2.setUserId(user.getUserId());
-		user2.setUserName(user.getUserName());
+		user2.setUserId(0);
+		user2.setUserName("Default");
 		user2.addProject(project2);
 		
-		project2.setUser(user2);*/
-		System.out.println("2 :- " + project2.toString());
+		project2.setUser(user2);
 		projectRepository.save(project2);
 	}
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entities.Project;
 import com.example.services.ProjectService;
+import com.example.tos.ProjectCto;
 
 @RestController
 @RequestMapping(value = "/rest/api/project")
@@ -27,14 +28,14 @@ public class ProjectController {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON)
-	public Project getUser(@PathVariable int id) {
+	public ProjectCto getUser(@PathVariable int id) {
 		return projectService.getProject(id);
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON)
-	public ResponseEntity<Void> saveProject(@RequestBody Project project) {
-		logger.info(project.toString());
-		projectService.saveProject(project);
+	public ResponseEntity<Void> saveProject(@RequestBody ProjectCto projectCto) {
+		logger.info(projectCto.toString());
+		projectService.saveProject(projectCto);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }

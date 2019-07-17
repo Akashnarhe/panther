@@ -1,8 +1,9 @@
 package com.example.servicesimpl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,11 @@ import com.example.entities.Project;
 import com.example.entities.User;
 import com.example.entities.Work;
 import com.example.services.UserService;
+import com.example.tos.ProjectCto;
+import com.example.tos.ProjectTo;
+import com.example.tos.UserCto;
+import com.example.tos.UserTo;
+import com.example.tos.WorkTo;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,21 +29,58 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
-	private ProjectServiceImpl projectServiceImpl;
-
 	@Override
-	public User getUser(int id) {
+	public UserCto getUser(int id) {
+		UserCto userCto = new UserCto();
+		UserTo userTo = new UserTo();
+		List<ProjectCto> projectCtoList = new ArrayList<>();
+		
 		User user = userRepository.findById(id).get();
-		return user;
+		
+		userTo.setUserId(user.getUserId());
+		userTo.setUserName(user.getUserName());
+		
+		userCto.setUser(userTo);
+
+		Set<Project> projectsSet = new HashSet<>(user.getProjects());
+
+		for (Project project : projectsSet) {
+			
+			ProjectCto projectCto = new ProjectCto();
+			ProjectTo projectTo = new ProjectTo();
+			List<WorkTo> workToList = new ArrayList<>();
+			
+			projectTo.setProjectId(project.getProjectId());
+			projectTo.setProjectName(project.getProjectName());
+			projectCto.setProject(projectTo);
+			
+			
+			for (Work work : project.getWorks()) {
+				
+				WorkTo workTo = new WorkTo();
+				
+				workTo.setWorkId(work.getWorkId());
+				workTo.setWorkName(work.getWorkName());
+				
+				workToList.add(workTo);
+			}
+			projectCto.setWorks(workToList);
+			projectCtoList.add(projectCto);
+		}
+		userCto.setProjects(projectCtoList);
+		
+		logger.debug(userCto.toString());
+		
+		return userCto;
 	}
+	
 
 	@Override
-	public void saveUser(User user) {
+	public void saveUser(UserCto userCto) {
 
 		User user2 = new User();
-		user2.setUserId(user.getUserId());
-		user2.setUserName(user.getUserName());
+		user2.setUserId(userCto.getUser().getUserId());
+		user2.setUserName(userCto.getUser().getUserName());
 
 		/*
 		 * List<Project> projectList = user.getProjects(); ListIterator<Project>
@@ -54,17 +97,20 @@ public class UserServiceImpl implements UserService {
 		 * project2.addWork(work); } user2.addProject(project2); }
 		 */
 
-		List<Project> projectList = user.getProjects();
-		for (Project project : projectList) {
+		List<ProjectCto> projectList = userCto.getProjects();
+		for (ProjectCto project : projectList) {
 
 			Project project2 = new Project();
-			project2.setProjectId(project.getProjectId());
-			project2.setProjectName(project.getProjectName());
+			project2.setProjectId(project.getProject().getProjectId());
+			project2.setProjectName(project.getProject().getProjectName());
 
-			List<Work> workList = project.getWorks();
+			List<WorkTo> workList = project.getWorks();
 
-			for (Work work : workList) {
-				project2.addWork(work);
+			for (WorkTo work : workList) {
+				Work work2 = new Work();
+				work2.setWorkId(work.getWorkId());
+				work2.setWorkName(work.getWorkName());
+				project2.addWork(work2);
 			}
 			user2.addProject(project2);
 		}

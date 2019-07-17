@@ -1,7 +1,7 @@
 package com.example.services;
 
-import com.example.entities.Work;
+import com.example.tos.WorkTo;
 
 public interface WorkService {
-	public Work getWork(int id);
+	public WorkTo getWork(int id);
 }

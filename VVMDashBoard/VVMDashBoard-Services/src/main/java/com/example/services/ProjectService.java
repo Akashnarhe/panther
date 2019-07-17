@@ -1,8 +1,8 @@
 package com.example.services;
 
-import com.example.entities.Project;
+import com.example.tos.ProjectCto;
 
 public interface ProjectService {
-	Project getProject(int id);
-	void saveProject(Project project);
+	ProjectCto getProject(int id);
+	void saveProject(ProjectCto projectCto);
 }

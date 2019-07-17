@@ -36,8 +36,8 @@ public class Project {
 	@Column(name = "Project_Name")
 	private String projectName;
 
-	@Getter(onMethod_ = { @JsonIgnore })
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	//@Getter(onMethod_ = { @JsonIgnore })
+	@ManyToOne()
 	@JoinColumn(name = "User_Id")
 	private User user = new User();
 
