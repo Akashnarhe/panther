@@ -11,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
 
 import com.demoh2.example.model.User;
@@ -22,6 +23,7 @@ public class ExcelUtility extends AbstractXlsView {
 			HttpServletResponse response) throws Exception {
 		
 		response.setHeader("Content-Disposition", "attachment; filename=\"User_Report.xls\"");
+		response.setStatus(HttpServletResponse.SC_OK);
 
 		@SuppressWarnings("unchecked")
 		List<User> users = (List<User>) model.get("userList");
