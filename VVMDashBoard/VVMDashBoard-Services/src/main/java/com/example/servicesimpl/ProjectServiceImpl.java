@@ -65,12 +65,19 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		
 		User user2 = new User();
-		user2.setUserId(0);
+		user2.setUserId(1);
 		user2.setUserName("Default");
 		user2.addProject(project2);
 		
 		project2.setUser(user2);
 		projectRepository.save(project2);
+	}
+
+	
+	
+	@Override
+	public void deleteProject(int id) {
+		projectRepository.deleteById(id);
 	}
 
 }
