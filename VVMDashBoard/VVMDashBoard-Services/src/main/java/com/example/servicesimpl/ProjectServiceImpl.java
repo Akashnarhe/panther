@@ -73,8 +73,6 @@ public class ProjectServiceImpl implements ProjectService {
 		projectRepository.save(project2);
 	}
 
-	
-	
 	@Override
 	public void deleteProject(int id) {
 		projectRepository.deleteById(id);
