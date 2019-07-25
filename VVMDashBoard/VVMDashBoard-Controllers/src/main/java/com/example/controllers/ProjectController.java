@@ -1,5 +1,7 @@
 package com.example.controllers;
 
+import java.util.List;
+
 import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.entities.Project;
 import com.example.services.ProjectService;
 import com.example.tos.ProjectCto;
+import com.spotify.docker.client.shaded.javax.ws.rs.GET;
 
 @RestController
 @RequestMapping(value = "/rest/api/project")
@@ -29,7 +32,7 @@ public class ProjectController {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON)
-	public ProjectCto getUser(@PathVariable int id) {
+	public ProjectCto getProject(@PathVariable int id) {
 		return projectService.getProject(id);
 	}
 	
@@ -46,4 +49,10 @@ public class ProjectController {
 		projectService.deleteProject(id);
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
+	
+	@GetMapping(produces = MediaType.APPLICATION_JSON)
+	public List<ProjectCto> getAllProjects() {
+		return projectService.getAllProjects();
+	}
+	
 }

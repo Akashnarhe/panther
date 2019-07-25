@@ -26,7 +26,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public ProjectCto getProject(int id) {
 		ProjectCto projectCto = new ProjectCto();
 		ProjectTo projectTo = new ProjectTo();
-		ArrayList<WorkTo> workToList = new ArrayList<>();
+		List<WorkTo> workToList = new ArrayList<>();
 		
 		Project project = projectRepository.findById(id).get();
 		
@@ -76,6 +76,37 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public void deleteProject(int id) {
 		projectRepository.deleteById(id);
+	}
+	
+
+	@Override
+	public List<ProjectCto> getAllProjects() {
+		List<ProjectCto> projectCtos = new ArrayList<>();
+		
+		List<Project> projects = projectRepository.findAll();
+		
+		for (Project project : projects) {
+			ProjectCto projectCto = new ProjectCto();
+			List<WorkTo> workToList = new ArrayList<>();
+			ProjectTo projectTo = new ProjectTo();
+			
+			projectTo.setProjectId(project.getProjectId());
+			projectTo.setProjectName(project.getProjectName());
+			projectCto.setProject(projectTo);
+			
+			HashSet<Work> workList = new HashSet<>(project.getWorks());
+			
+			for (Work work : workList) {
+				WorkTo workTo = new WorkTo();
+				workTo.setWorkId(work.getWorkId());
+				workTo.setWorkName(work.getWorkName());
+				workToList.add(workTo);
+			}
+			projectCto.setWorks(workToList);
+			projectCtos.add(projectCto);
+		}
+		
+		return projectCtos;
 	}
 
 }
