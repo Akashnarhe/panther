@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.entities.Project;
 import com.example.services.ProjectService;
 import com.example.tos.ProjectCto;
-import com.spotify.docker.client.shaded.javax.ws.rs.GET;
 
 @RestController
 @RequestMapping(value = "/rest/api/project")
