@@ -126,4 +126,52 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteById(id);
 	}
 
+
+	@Override
+	public List<UserCto> getAllUsers() {
+		List<UserCto> userCtos = new ArrayList<>();
+		List<User> users = userRepository.findAll();
+
+		for (User user : users) {
+			UserCto userCto = new UserCto();
+			UserTo userTo = new UserTo();
+			List<ProjectCto> projectCtoList = new ArrayList<>();
+			
+			userTo.setUserId(user.getUserId());
+			userTo.setUserName(user.getUserName());
+			
+			userCto.setUser(userTo);
+			
+			Set<Project> projectsSet = new HashSet<>(user.getProjects());
+
+			for (Project project : projectsSet) {
+				
+				ProjectCto projectCto = new ProjectCto();
+				ProjectTo projectTo = new ProjectTo();
+				List<WorkTo> workToList = new ArrayList<>();
+				
+				projectTo.setProjectId(project.getProjectId());
+				projectTo.setProjectName(project.getProjectName());
+				projectCto.setProject(projectTo);
+				
+				
+				for (Work work : project.getWorks()) {
+					
+					WorkTo workTo = new WorkTo();
+					
+					workTo.setWorkId(work.getWorkId());
+					workTo.setWorkName(work.getWorkName());
+					
+					workToList.add(workTo);
+				}
+				projectCto.setWorks(workToList);
+				projectCtoList.add(projectCto);
+			}
+			userCto.setProjects(projectCtoList);
+			userCtos.add(userCto);
+		}
+		
+		return userCtos;
+	}
+
 }

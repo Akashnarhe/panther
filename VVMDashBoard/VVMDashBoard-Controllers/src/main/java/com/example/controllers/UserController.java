@@ -1,5 +1,7 @@
 package com.example.controllers;
 
+import java.util.List;
+
 import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;
@@ -47,4 +49,10 @@ public class UserController {
 		userService.deleteUser(id);
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
+	 
+	@GetMapping(produces = MediaType.APPLICATION_JSON)
+	public List<UserCto> getAllUsers() {
+		return userService.getAllUsers();
+	}
+	
 }
