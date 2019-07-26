@@ -3,5 +3,6 @@ package com.example.services;
 import com.example.entities.Employee;
 
 public interface EmployeeService {
-	public void saveEmployee(Employee emp);
+	void saveEmployee(Employee emp);
+	Employee getEmployee(int emp_Id);
 }
