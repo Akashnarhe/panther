@@ -31,7 +31,7 @@ public class EmployeeController {
 		employeeServiceImpl.saveEmployee(emp);
 	}
 	
-	@GetMapping(value = "/{emp_Id}", produces = MediaType.APPLICATION_JSON)
+	@GetMapping(value = "/{emp_Id}", produces = {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Employee getEmployee(@PathVariable int emp_Id) {
 		logger.info("Employee Id for get " + emp_Id);
 		return employeeServiceImpl.getEmployee(emp_Id);

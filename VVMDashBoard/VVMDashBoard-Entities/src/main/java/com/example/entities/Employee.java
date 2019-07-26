@@ -12,10 +12,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.example.serializer.JaxbDateSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 import lombok.Data;
+import lombok.Getter;
 
 @Entity
 @Table(name="Employee")
@@ -41,7 +45,8 @@ public class Employee implements Serializable {
 	
 	@Column(name = "Emp_Joining_Date")
 	@Temporal(TemporalType.DATE)
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Calcutta")
+	@Getter(onMethod_={@XmlJavaTypeAdapter(JaxbDateSerializer.class)})
 	private Date emp_Joining_Date;
 	 
 }
