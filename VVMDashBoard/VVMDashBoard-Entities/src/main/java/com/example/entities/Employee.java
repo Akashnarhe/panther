@@ -11,7 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorOrder;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.example.serializer.JaxbDateSerializer;
@@ -24,6 +28,7 @@ import lombok.Getter;
 @Entity
 @Table(name="Employee")
 @XmlRootElement
+@XmlType(propOrder = {"emp_Id", "emp_Name", "emp_Email", "emp_Salary", "emp_Joining_Date"})
 @Data
 public class Employee implements Serializable {
 
