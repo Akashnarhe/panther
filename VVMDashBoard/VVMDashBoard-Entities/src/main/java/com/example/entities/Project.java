@@ -18,10 +18,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
-import lombok.Getter;
 
 @Entity
 @Table(name = "Project")
@@ -36,8 +34,7 @@ public class Project {
 	@Column(name = "Project_Name")
 	private String projectName;
 
-	//@Getter(onMethod_ = { @JsonIgnore })
-	@ManyToOne()
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "User_Id")
 	private User user = new User();
 

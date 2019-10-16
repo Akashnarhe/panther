@@ -1,5 +1,7 @@
 package com.example.controllers;
 
+import java.util.List;
+
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,11 @@ public class WorkController {
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON)
 	public WorkTo getWork(@PathVariable int id) {
 		return workService.getWork(id);
+	}
+	
+	@GetMapping(produces = MediaType.APPLICATION_JSON)
+	public List<WorkTo> getAllWork(){
+		return workService.getAllWork();
 	}
 
 }

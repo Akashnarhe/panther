@@ -1,9 +1,12 @@
 package com.example.controllers;
 
+import javax.ws.rs.core.MediaType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +25,16 @@ public class EmployeeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
-	@PostMapping(value="/save", consumes="application/json")
+	@PostMapping(consumes = MediaType.APPLICATION_JSON)
 	public void saveEmployee(@RequestBody Employee emp) {
-		logger.debug(emp.toString());
+		logger.info(emp.toString());
 		employeeServiceImpl.saveEmployee(emp);
+	}
+	
+	@GetMapping(value = "/{emp_Id}", produces = {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public Employee getEmployee(@PathVariable int emp_Id) {
+		logger.info("Employee Id for get " + emp_Id);
+		return employeeServiceImpl.getEmployee(emp_Id);
 	}
 
 	@GetMapping(value="/get",produces="application/json")

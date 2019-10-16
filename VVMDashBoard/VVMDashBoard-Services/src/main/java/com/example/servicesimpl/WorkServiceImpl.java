@@ -1,5 +1,8 @@
 package com.example.servicesimpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,21 @@ public class WorkServiceImpl implements WorkService {
 		workTo.setWorkName(work.getWorkName());
 		
 		return workTo;
+	}
+
+	@Override
+	public List<WorkTo> getAllWork() {
+		List<WorkTo> workTos = new ArrayList<>();
+		List<Work> workList = workRepository.findAll();
+		
+		for (Work work : workList) {
+			WorkTo workTo = new WorkTo();
+			workTo.setWorkId(work.getWorkId());
+			workTo.setWorkName(work.getWorkName());
+			workTos.add(workTo);
+		}
+		
+		return workTos;
 	}
 
 }

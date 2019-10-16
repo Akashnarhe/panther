@@ -1,5 +1,7 @@
 package com.example.controllers;
 
+import java.util.List;
+
 import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;
@@ -7,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,4 +42,17 @@ public class UserController {
 		userService.saveUser(userCto);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> deleteUser(@PathVariable int id){
+		logger.info("Input :- " + id);
+		userService.deleteUser(id);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
+	 
+	@GetMapping(produces = MediaType.APPLICATION_JSON)
+	public List<UserCto> getAllUsers() {
+		return userService.getAllUsers();
+	}
+	
 }
