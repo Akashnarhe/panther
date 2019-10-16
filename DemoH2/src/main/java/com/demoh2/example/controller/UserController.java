@@ -30,14 +30,9 @@ public class UserController {
 		list.add(new User(4,"Alok","Kumar","alok.kumar@gmail.com",662));
 		list.add(new User(5,"Ronil","Shah","ronil.shah@gmail.com",562));
 		list.add(new User(6,"Vinay","Nair","akash.dnarhe@gmail.com",462));
-<<<<<<< HEAD
 		User user = new User(); 
 		user.setId(7);
 		list.add(user);
-=======
-		Demo demo = new Demo();
-		demo.toString();
->>>>>>> branch 'master' of https://github.com/Akashnarhe/panther.git
 		return new ModelAndView(new ExcelUtility(), "userList", list);
 	}
 }
